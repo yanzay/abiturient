@@ -1,0 +1,24 @@
+﻿{% extends 'base.html' %}
+
+{% block content %}
+<form action="" method="post">
+{% csrf_token %}
+<table>
+<tr><th></th><td><h2>Данные абитуриента</h2></td></tr>
+{{ abit_form }}
+<tr><th></th><td><h2>Результаты тестов</h2></td></tr>
+<div id="results">
+<div class="res_form">
+{{ result_form }}
+</div>
+</div>
+<tr><th></th><td><a id="add_res" href="#">Добавить</a></td></tr>
+</table>
+<input type="submit" value="Отправить" />
+</form>
+<script>
+	$('a').click(function(event){
+		$('#results').append('results');
+	});
+</script>
+{% endblock %}
