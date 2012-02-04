@@ -1,15 +1,11 @@
-from django import forms
-from abiturient.abit.models import Abiturient, AbitRequest, TestResult
+from django.forms import ModelForm
+from abiturient.abit.models import AbitRequest
 
-class AbitForm(forms.ModelForm):
-	class Meta:
-		model = Abiturient
-		
-class AbitRequestForm(forms.ModelForm):
-	class Meta:
-		model = AbitRequest
-		
-class TestResultForm(forms.ModelForm):
-	class Meta:
-		model = TestResult
-		exclude = ('abit', 'request')
+class AbitRequestForm(ModelForm):
+    class Meta:
+        model = AbitRequest
+
+#class TestResultForm(forms.ModelForm):
+#    class Meta:
+#        model = TestResult
+#        exclude = ('abit', 'request')
