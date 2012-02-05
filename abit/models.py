@@ -1,4 +1,6 @@
-﻿from django.db.models.base import Model
+﻿# coding=utf-8
+
+from django.db.models.base import Model
 from django.db.models.fields import CharField, DateField, FloatField
 from django.db.models.fields.related import ForeignKey, ManyToManyField
 

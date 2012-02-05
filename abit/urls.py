@@ -1,3 +1,5 @@
+# coding=utf-8
+
 from django.conf.urls.defaults import patterns, include, url
 #from django.views.generic.list_details import object_list
 #from django.views.generic.create_update import create_object
