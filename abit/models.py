@@ -1,10 +1,6 @@
-﻿from django.db.models import *
-
-class TestSubject(Model):
-    name = CharField(max_length=30)
-
-    def __unicode__(self):
-        return self.name
+﻿from django.db.models.base import Model
+from django.db.models.fields import CharField, DateField, FloatField
+from django.db.models.fields.related import ForeignKey, ManyToManyField
 
 class AbitRequest(Model):
     surname = CharField(u'Фамилия', max_length=50)
@@ -23,22 +19,22 @@ class AbitRequest(Model):
     att_date = DateField(u'Дата выдачи аттестата')
     att_srbal = FloatField(u'Средний балл аттестата')
     code = CharField(u'Шифр заявки', max_length=7)
-    speciality = ForeignKey('Speciality')
-    edform = ForeignKey('EducationalForm')
+    speciality = ForeignKey('Speciality', verbose_name=u'Специальность')
+    edform = ForeignKey('EducationalForm',verbose_name=u'Форма обучения')
 
-    test1_subject = ForeignKey(TestSubject,related_name="+")
+    test1_subject = ForeignKey('TestSubject',related_name="+")
     test1_cert_num = CharField(u'Номер сертификата', max_length=15)
     test1_cert_pin = CharField(u'Пин-код сертификата', max_length=4)
     test1_cert_year = CharField(u'Год получения сертификата', max_length=4)
     test1_value = FloatField(u'Балл')
 
-    test2_subject = ForeignKey(TestSubject,related_name="+")
+    test2_subject = ForeignKey('TestSubject',related_name="+")
     test2_cert_num = CharField(u'Номер сертификата', max_length=15)
     test2_cert_pin = CharField(u'Пин-код сертификата', max_length=4)
     test2_cert_year = CharField(u'Год получения сертификата', max_length=4)
     test2_value = FloatField(u'Балл')
 
-    test3_subject = ForeignKey(TestSubject,related_name="+")
+    test3_subject = ForeignKey('TestSubject',related_name="+")
     test3_cert_num = CharField(u'Номер сертификата', max_length=15)
     test3_cert_pin = CharField(u'Пин-код сертификата', max_length=4)
     test3_cert_year = CharField(u'Год получения сертификата', max_length=4)
@@ -64,3 +60,9 @@ class Speciality(Model):
 
     def __unicode__(self):
         return u"%s %s" % (self.code, self.name)
+
+class TestSubject(Model):
+    name = CharField(max_length=30)
+
+    def __unicode__(self):
+        return self.name
