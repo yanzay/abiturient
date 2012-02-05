@@ -1,7 +1,6 @@
 # coding=utf8
 
 from django import forms
-from django.forms.extras.widgets import SelectDateWidget
 from django.forms.widgets import DateInput
 from abiturient.abit.models import AbitRequest
 
