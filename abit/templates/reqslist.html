@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<ul>
+{% for r in abitrequest_list %}
+<li>{{ r.code }} {{ r.surname }} {{ r.name }}</li>
+{% endfor %}
+</ul>
+{% endblock %}
