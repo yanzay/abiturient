@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{{ object }}
-{{ abit_form.form }}
+<form action="" method="post">
+{% csrf_token %}
+<table>
+{{ form }}
+</table>
+    <input type="submit" value="Отправить" />
+</form>
+<script>
+    $('.date').mask('99.99.9999');
+</script>
 {% endblock %}

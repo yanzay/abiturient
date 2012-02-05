@@ -3,21 +3,23 @@ from django.views.generic.edit import CreateView
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 #from abiturient.abit.forms import AbitForm, AbitRequestForm, TestResultForm
+from django.views.generic.list import ListView
 from abit.forms import AbitRequestForm
 from abiturient.abit.factory import AbitFactory
 
 from abit.models import *
 
-class AddAbitView(CreateView):
+class AddAbitRequestView(CreateView):
     model = AbitRequest
     template_name = 'abitrequest_form.html'
     context_object_name = 'abit_form'
     form_class = AbitRequestForm
+    success_url = '/abit/list'
 
-def RequestList(request):
-    reqs = AbitRequest.objects.all()
-    context = RequestContext(request, {'reqs': reqs})
-    return render_to_response('reqslist.html', context)
+class AbitRequestListView(ListView):
+    model = AbitRequest
+    template_name = 'reqslist.html'
+    context_object_name = 'abitrequest_list'
 
 #def AddAbit(request):
 #    if not request.POST:

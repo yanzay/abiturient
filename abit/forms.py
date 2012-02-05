@@ -1,7 +1,10 @@
-from django.forms import ModelForm
+from django import forms
+from django.forms.extras.widgets import SelectDateWidget
+from django.forms.widgets import DateInput
 from abiturient.abit.models import AbitRequest
 
-class AbitRequestForm(ModelForm):
+class AbitRequestForm(forms.ModelForm):
+    birth_date = forms.DateField(widget=DateInput(attrs={"class":"date"}))
     class Meta:
         model = AbitRequest
 
