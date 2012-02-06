@@ -1,9 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<ul>
+<table>
 {% for r in abitrequest_list %}
-<li>{{ r.code }} {{ r.surname }} {{ r.name }}</li>
+<tr>
+    <td>{{ r.code }}</td>
+    <td>{{ r.surname }}</td>
+    <td>{{ r.name }}</td>
+    <td>{{ r.father }}</td>
+    <td>{{ r.test1_value }}</td>
+    <td>{{ r.test2_value }}</td>
+    <td>{{ r.test3_value }}</td>
+</tr>
 {% endfor %}
-</ul>
+</table>
 {% endblock %}
