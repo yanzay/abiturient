@@ -4,9 +4,7 @@ from django.views.generic.edit import CreateView
 from django.shortcuts import render_to_response, redirect
 from django.views.generic.list import ListView
 from abit.forms import AbitRequestForm
-from abiturient.abit.factory import AbitFactory
-
-from abit.models import *
+from abit.models import AbitRequest, EducationalForm
 
 class AddAbitRequestView(CreateView):
     model = AbitRequest
@@ -44,4 +42,4 @@ def Init(request):
     edform2 = EducationalForm(name=u'Заочна')
     edform1.save()
     edform2.save()
-    return redirect(RequestList)
+    return redirect(AbitRequestListView)

@@ -1,9 +1,10 @@
 # coding=utf-8
 
 from django.test.client import Client
-from django.utils import unittest
+from django.test.testcases import TestCase
+#from django.utils import unittest
 
-class ResponseStatusTest(unittest.TestCase):
+class ResponseStatusTest(TestCase):
     def setUp(self):
         self.client = Client()
     def test_abit_add(self):
