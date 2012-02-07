@@ -61,7 +61,7 @@ class Speciality(Model):
     subjects = ManyToManyField('TestSubject')
 
     def __unicode__(self):
-        return u"%s %s" % (self.code, self.name)
+        return self.name
 
 class TestSubject(Model):
     name = CharField(max_length=30)

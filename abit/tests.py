@@ -1,5 +1,5 @@
 # coding=utf-8
-from abit.models import AbitRequest, EducationalForm
+from abit.models import AbitRequest, EducationalForm, Speciality, TestSubject
 from django.test.client import Client
 from django.test.testcases import TestCase
 from django_any import any_model
@@ -19,11 +19,17 @@ class ResponseStatusTest(TestCase):
 
 class ModelsTest(TestCase):
     def test_request_unicode(self):
-        req = any_model(AbitRequest,surname=u"Pupkin",name=u"Vasiliy",father=u"Vitalievich")
-        self.assertEqual(req.__unicode__(), u"Pupkin Vasiliy Vitalievich")
+        req = any_model(AbitRequest,surname=u'Pupkin',name=u'Vasiliy',father=u'Vitalievich')
+        self.assertEqual(req.__unicode__(), u'Pupkin Vasiliy Vitalievich')
     def test_educational_form_unicode(self):
-        form = any_model(EducationalForm,name=u"Заочная")
-        self.assertEqual(form.__unicode__(),u"Заочная")
+        form = any_model(EducationalForm,name=u'Заочная')
+        self.assertEqual(form.__unicode__(),u'Заочная')
+    def test_speciality_unicode(self):
+        spec = any_model(Speciality,name=u'Информатика')
+        self.assertEqual(spec.__unicode__(),u'Информатика')
+    def test_subject_unicode(self):
+        subj = any_model(TestSubject,name=u'Математика')
+        self.assertEqual(subj.__unicode__(),u'Математика')
 
 
 #class AbitRequestTest(TestCase):

@@ -30,16 +30,11 @@ class AbitRequestListView(ListView):
 #        {'abit_form': abform, 'result_form': resultform},
 #        context_instance=RequestContext(request))
 
-
-
-def AddSuccess(request):
-    return render_to_response('success.html', {'link': request.META['HTTP_REFERER']})
-
-def Init(request):
-    # Init EducationalForm
-    EducationalForm.objects.all().delete()
-    edform1 = EducationalForm(name=u'Денна')
-    edform2 = EducationalForm(name=u'Заочна')
-    edform1.save()
-    edform2.save()
-    return redirect(AbitRequestListView)
+#def Init(request):
+#    # Init EducationalForm
+#    EducationalForm.objects.all().delete()
+#    edform1 = EducationalForm(name=u'Денна')
+#    edform2 = EducationalForm(name=u'Заочна')
+#    edform1.save()
+#    edform2.save()
+#    return redirect(AbitRequestListView)
