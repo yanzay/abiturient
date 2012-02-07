@@ -1,3 +1,4 @@
+# coding=utf-8
 # Django settings for abiturient project.
 
 DEBUG = True
@@ -120,7 +121,8 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
-	'abiturient.abit'
+    'abiturient.abit',
+    'django_jenkins',
 )
 
 # A sample logging configuration. The only tangible logging
