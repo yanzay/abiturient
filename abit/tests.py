@@ -20,8 +20,8 @@ class ResponseStatusTest(TestCase):
 
 class ModelsTest(TestCase):
     def test_request_model_unicode(self):
-        req = any_model(AbitRequest)
-        req.__unicode__
+        req = any_model(AbitRequest,surname="Pupkin",name="Vasiliy",father="Vitalievich")
+        self.assertEqual(req.__unicode__(), "Pupkin Vasiliy Vitalievich")
 
 
 #class AbitRequestTest(TestCase):
