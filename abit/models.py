@@ -3,6 +3,7 @@
 from django.db.models.base import Model
 from django.db.models.fields import CharField, DateField, FloatField
 from django.db.models.fields.related import ForeignKey, ManyToManyField
+from django.contrib.auth.models import User
 
 class AbitRequest(Model):
     surname = CharField(u'Фамилия', max_length=50)
@@ -42,6 +43,8 @@ class AbitRequest(Model):
     test3_cert_year = CharField(u'Год получения сертификата', max_length=4)
     test3_value = FloatField(u'Балл')
 
+    date = DateField(auto_now_add=True)
+    creator = ForeignKey(User)
 
     def __unicode__(self):
         return u"%s %s %s" % (self.surname, self.name, self.father)
