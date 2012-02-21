@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<testsuite errors="0" failures="0" name="abiturient.abit.tests.ResponseStatusTest" tests="3" time="0.012">
+	<testcase classname="abiturient.abit.tests.ResponseStatusTest" name="test_abit_add" time="0.004"/>
+	<testcase classname="abiturient.abit.tests.ResponseStatusTest" name="test_abit_list" time="0.004"/>
+	<testcase classname="abiturient.abit.tests.ResponseStatusTest" name="test_abit_main" time="0.004"/>
+	<system-out/>
+	<system-err/>
+</testsuite>
