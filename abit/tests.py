@@ -13,7 +13,7 @@ class ResponseStatusTest(TestCase):
     def test_abit_add(self):
         self.assertEqual(self.client.get('/abit/add/').status_code,200)
     def test_abit_list(self):
-        self.assertEqual(self.client.get('/abit/list/').status_code,200)
+        self.assertEqual(self.client.get('/abit/list/').status_code,301)
     def test_abit_main(self):
         self.assertEqual(self.client.get('/abit/').status_code,301)
 
