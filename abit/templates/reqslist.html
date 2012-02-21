@@ -16,7 +16,7 @@
 <tr>
     <td>{{ r.date|date:"d.m.Y" }}</td>
     <td class="shifr">{{ r.code }}</td>
-    <td>{{ r.surname }} {{ r.name }} {{ r.father }}</td>
+    <td><a href="/abit/edit/{{ r.id }}">{{ r.surname }} {{ r.name }} {{ r.father }}</a></td>
     <td class="bal">{{ r.att_srbal }}</td>
     <td class="bal">{{ r.test1_value }}</td>
     <td class="bal">{{ r.test2_value }}</td>

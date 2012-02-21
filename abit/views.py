@@ -1,6 +1,6 @@
 ﻿# coding=utf-8
 from django.http import HttpResponseRedirect
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.shortcuts import render_to_response, redirect
 from django.views.generic.list import ListView
 from abit.forms import AbitRequestForm
@@ -19,6 +19,12 @@ class AbitRequestListView(ListView):
     template_name = 'reqslist.html'
     context_object_name = 'abitrequest_list'
     paginate_by = 50
+
+class EditAbitRequestView(UpdateView):
+    model = AbitRequest
+    template_name = 'abitrequest_form.html'
+    context_object_name = 'abit_form'
+    form_class = AbitRequestForm
 
 def Init(request):
     g = Generator()
