@@ -1,26 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<table>
+<table id="abits">
 <tr>
-    <th>Шифр</th>
-    <th>Фамилия</th>
-    <th>Имя</th>
-    <th>Отчество</th>
-    <th>Тест 1</th>
-    <th>Тест 2</th>
-    <th>Тест 3</th>
+    <th>Дата</th>
+    <th class="shifr">Шифр</th>
+    <th class="name">ФИО</th>
+    <th class="bal">Средний<br>балл<br>аттестата</th>
+    <th class="bal">Украинский<br>язык и<br>литература</th>
+    <th class="bal">Второй<br>предмет</th>
+    <th class="bal">Третий<br>предмет</th>
+    <th class="bal">Сумма<br>баллов</th>
 </tr>
 {% for r in abitrequest_list %}
 <tr>
-    <td>{{ r.code }}</td>
-    <td>{{ r.surname }}</td>
-    <td>{{ r.name }}</td>
-    <td>{{ r.father }}</td>
-    <td>{{ r.test1_value }}</td>
-    <td>{{ r.test2_value }}</td>
-    <td>{{ r.test3_value }}</td>
+    <td>{{ r.date|date:"d.m.Y" }}</td>
+    <td class="shifr">{{ r.code }}</td>
+    <td>{{ r.surname }} {{ r.name }} {{ r.father }}</td>
+    <td class="bal">{{ r.att_srbal }}</td>
+    <td class="bal">{{ r.test1_value }}</td>
+    <td class="bal">{{ r.test2_value }}</td>
+    <td class="bal">{{ r.test3_value }}</td>
+    <td class="bal">{{ r.sum_bal }}</td>
 </tr>
 {% endfor %}
 </table>
+<p>Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</p>
 {% endblock %}

@@ -4,24 +4,12 @@ from models import *
 import datetime
 from django.contrib import auth
 
-class Subjects:
-    urk=0
-    math=1
-    hist=2
-    geog=3
-    phis=4
-    chem=5
-    bio=6
-    eng=7
-    fr=8
-    de=9
-
 class AbitRequestHelper:
     def __init__(self):
         self.male_surnames = [s[:-1] for s in open('surnames.txt','r').readlines()]
         self.female_surnames = [s+'а' for s in self.male_surnames]
         self.male_names = [s[:-1] for s in open('names_male.txt','r').readlines()]
-        self.female_names = [s[:-1] for s in open('names_male.txt','r').readlines()]
+        self.female_names = [s[:-1] for s in open('names_female.txt','r').readlines()]
         self.male_fathers = [s[:-1] for s in open('middle_names_male.txt','r').readlines()]
         self.female_fathers = [s[:-1] for s in open('middle_names_female.txt','r').readlines()]
 
@@ -70,10 +58,11 @@ class Generator:
     def getSubj(self, sname):
         return TestSubject.objects.get(name=sname)
     
-    def addSpeciality(self, sname, scode, *args):
+    def addSpeciality(self, sname, short_name, scode, *args):
         s = Speciality(name=sname, code=scode)
         s.subject1 = self.getSubj(u'Українська мова та література')
         s.subject2 = self.getSubj(args[0])
+        s.short_name = short_name
         s.save()
         for subj in args[1:]:
             s.subject3.add(self.getSubj(subj))
@@ -82,34 +71,34 @@ class Generator:
     def addSpecialities(self):
         Speciality.objects.all().delete()
         
-        self.addSpeciality(u'Економіка підприємства', u'6.030504',
+        self.addSpeciality(u'Економіка підприємства', u'еп', u'6.030504',
                             u'Математика',
                             u'Історія України',
                             u'Географія'
                             )
-        self.addSpeciality(u'Інформатика', u'6.040302',
+        self.addSpeciality(u'Інформатика', u'ін', u'6.040302',
                             u'Математика',
                             u'Фізика',
                             u'Англійська мова',
                             u'Французька мова',
                             u'Німецька мова'
                             )
-        self.addSpeciality(u'Машинобудування', u'6.050503',
+        self.addSpeciality(u'Машинобудування', u'оп', u'6.050503',
                             u'Математика',
                             u'Хімія',
                             u'Фізика'
                             )
-        self.addSpeciality(u'Екологія, охорона навколишнього середовища та збалансоване природокористування', u'6.040106',
+        self.addSpeciality(u'Екологія, охорона навколишнього середовища та збалансоване природокористування', u'ео', u'6.040106',
                             u'Математика',
                             u'Хімія',
                             u'Географія',
                             )
-        self.addSpeciality(u'Хімічна технологія', u'6.051301',
+        self.addSpeciality(u'Хімічна технологія', u'ор', u'6.051301',
                             u'Хімія',
                             u'Математика',
                             u'Фізика'
                             )
-        self.addSpeciality(u'Фармація', u'7.120201',
+        self.addSpeciality(u'Фармація', u'фп', u'7.120201',
                             u'Хімія',
                             u'Фізика',
                             u'Біологія'
@@ -149,11 +138,12 @@ class Generator:
         ab.test3_subject = self.getSubj(ab.speciality.subject3.all()[0])
         ab.test3_value = h.getBall()
         ab.creator = auth.get_user(request)
+        ab.code = ab.speciality.short_name + ab.edform.name[0].lower() + '%03d' % random.randint(1,200)
         ab.save()
         
     def generateAbitRequests(self,request):
         AbitRequest.objects.all().delete()
-        for i in range(1,50):
+        for i in range(1,300):
             self.addAbitRequest(request)
         
 #def __main__(**args):

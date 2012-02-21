@@ -1,12 +1,14 @@
+# encoding=utf-8
 from django.conf.urls.defaults import patterns, include, url
 
-# Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+from django.views.generic.base import RedirectView
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'abiturient.views.home', name='home'),
+#    url(r'^$', RedirectView.as_view(url='/abit/')),
     url(r'^abit/', include('abiturient.abit.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

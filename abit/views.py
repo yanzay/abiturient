@@ -18,21 +18,10 @@ class AbitRequestListView(ListView):
     model = AbitRequest
     template_name = 'reqslist.html'
     context_object_name = 'abitrequest_list'
-
-#def AddAbit(request):
-#    if not request.POST:
-#        abform = AbitForm()
-#        resultform = TestResultForm()
-#    else:
-#        abitFactory = AbitFactory()
-#        abitFactory.addAbit(request.POST)
-#        return redirect(AddSuccess)
-#    return render_to_response('form.html',
-#        {'abit_form': abform, 'result_form': resultform},
-#        context_instance=RequestContext(request))
+    paginate_by = 50
 
 def Init(request):
     g = Generator()
-    #g.generateBase()
+    g.generateBase()
     g.generateAbitRequests(request)
     return HttpResponseRedirect('/abit/list/')

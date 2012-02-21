@@ -1,6 +1,6 @@
 ﻿# coding=utf-8
 from django.db.models.base import Model
-from django.db.models.fields import CharField, DateField, FloatField
+from django.db.models.fields import CharField, DateField, FloatField, DecimalField
 from django.db.models.fields.related import ForeignKey, ManyToManyField
 from django.contrib.auth.models import User
 
@@ -19,7 +19,7 @@ class AbitRequest(Model):
     phone = CharField(u'Телефон', max_length=15)
     att_school = CharField(u'Учебное заведение', max_length=25)
     att_date = DateField(u'Дата выдачи аттестата')
-    att_srbal = FloatField(u'Средний балл аттестата')
+    att_srbal = DecimalField(u'Средний балл аттестата', max_digits=4, decimal_places=1)
     code = CharField(u'Шифр заявки', max_length=7)
     speciality = ForeignKey('Speciality', verbose_name=u'Специальность')
     edform = ForeignKey('EducationalForm',verbose_name=u'Форма обучения')
@@ -28,25 +28,29 @@ class AbitRequest(Model):
     test1_cert_num = CharField(u'Номер сертификата', max_length=15)
     test1_cert_pin = CharField(u'Пин-код сертификата', max_length=4)
     test1_cert_year = CharField(u'Год получения сертификата', max_length=4)
-    test1_value = FloatField(u'Балл')
+    test1_value = DecimalField(u'Балл', max_digits=4, decimal_places=1)
 
     test2_subject = ForeignKey('TestSubject',related_name="+")
     test2_cert_num = CharField(u'Номер сертификата', max_length=15)
     test2_cert_pin = CharField(u'Пин-код сертификата', max_length=4)
     test2_cert_year = CharField(u'Год получения сертификата', max_length=4)
-    test2_value = FloatField(u'Балл')
+    test2_value = DecimalField(u'Балл', max_digits=4, decimal_places=1)
 
     test3_subject = ForeignKey('TestSubject',related_name="+")
     test3_cert_num = CharField(u'Номер сертификата', max_length=15)
     test3_cert_pin = CharField(u'Пин-код сертификата', max_length=4)
     test3_cert_year = CharField(u'Год получения сертификата', max_length=4)
-    test3_value = FloatField(u'Балл')
+    test3_value = DecimalField(u'Балл', max_digits=4, decimal_places=1)
 
     date = DateField(auto_now_add=True)
     creator = ForeignKey(User)
 
     def __unicode__(self):
         return u"%s %s %s" % (self.surname, self.name, self.father)
+
+    @property
+    def sum_bal(self):
+        return self.att_srbal + self.test1_value + self.test2_value + self.test3_value
 
 #class AbiturientAdmin(admin.ModelAdmin):
 #   list_display = ('surname', 'name', 'father')
@@ -60,6 +64,7 @@ class EducationalForm(Model):
 class Speciality(Model):
     code = CharField(u'Шифр специальности', max_length=15)
     name = CharField(u'Название', max_length=50)
+    short_name = CharField(u'Короткое название', max_length=5)
     subject1 = ForeignKey('TestSubject',related_name="+")
     subject2 = ForeignKey('TestSubject',related_name="+")
     subject3 = ManyToManyField('TestSubject',related_name="+")
