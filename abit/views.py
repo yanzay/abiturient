@@ -5,6 +5,7 @@ from django.shortcuts import render_to_response, redirect
 from django.views.generic.list import ListView
 from abit.forms import AbitRequestForm
 from abit.models import AbitRequest, EducationalForm
+from abit.dummy import Generator
 
 class AddAbitRequestView(CreateView):
     model = AbitRequest
@@ -30,11 +31,6 @@ class AbitRequestListView(ListView):
 #        {'abit_form': abform, 'result_form': resultform},
 #        context_instance=RequestContext(request))
 
-#def Init(request):
-#    # Init EducationalForm
-#    EducationalForm.objects.all().delete()
-#    edform1 = EducationalForm(name=u'Денна')
-#    edform2 = EducationalForm(name=u'Заочна')
-#    edform1.save()
-#    edform2.save()
-#    return redirect(AbitRequestListView)
+def Init(request):
+    g = Generator()
+    g.generateBase()

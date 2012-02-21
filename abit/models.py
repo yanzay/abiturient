@@ -60,7 +60,9 @@ class EducationalForm(Model):
 class Speciality(Model):
     code = CharField(u'Шифр специальности', max_length=15)
     name = CharField(u'Название', max_length=50)
-    subjects = ManyToManyField('TestSubject')
+    subject1 = ForeignKey('TestSubject',related_name="+")
+    subject2 = ForeignKey('TestSubject',related_name="+")
+    subject3 = ManyToManyField('TestSubject',related_name="+")
 
     def __unicode__(self):
         return self.name
