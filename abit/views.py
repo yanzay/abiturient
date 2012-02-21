@@ -1,5 +1,5 @@
 ﻿# coding=utf-8
-
+from django.http import HttpResponseRedirect
 from django.views.generic.edit import CreateView
 from django.shortcuts import render_to_response, redirect
 from django.views.generic.list import ListView
@@ -33,4 +33,6 @@ class AbitRequestListView(ListView):
 
 def Init(request):
     g = Generator()
-    g.generateBase()
+    #g.generateBase()
+    g.generateAbitRequests(request)
+    return HttpResponseRedirect('/abit/list/')
