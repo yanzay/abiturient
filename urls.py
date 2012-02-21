@@ -8,7 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-#    url(r'^$', RedirectView.as_view(url='/abit/')),
+    url(r'^$', RedirectView.as_view(url='/abit/list/')),
     url(r'^abit/', include('abiturient.abit.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

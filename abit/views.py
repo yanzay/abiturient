@@ -12,13 +12,22 @@ class AddAbitRequestView(CreateView):
     template_name = 'abitrequest_form.html'
     context_object_name = 'abit_form'
     form_class = AbitRequestForm
-    success_url = '/abit/list'
+    success_url = '/abit/list/'
+
+    def form_valid(self, form):
+        inst = form.save(commit=False)
+        inst.creator = self.request.user
+        inst.save()
+        return redirect(self.success_url)
 
 class AbitRequestListView(ListView):
-    model = AbitRequest
+#    model = AbitRequest
     template_name = 'reqslist.html'
     context_object_name = 'abitrequest_list'
     paginate_by = 50
+
+    def get_queryset(self):
+        return AbitRequest.objects.all().order_by('-date')
 
 class EditAbitRequestView(UpdateView):
     model = AbitRequest

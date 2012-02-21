@@ -1,5 +1,5 @@
 ﻿# coding=utf-8
-from django.db.models.base import Model
+from django.db.models import Model
 from django.db.models.fields import CharField, DateField, FloatField, DecimalField
 from django.db.models.fields.related import ForeignKey, ManyToManyField
 from django.contrib.auth.models import User

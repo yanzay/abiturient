@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<p class="pager">Страницы:
+    {% for p in page_obj.paginator.page_range %}
+    {% if p != page_obj.number %}
+    <a href="/abit/list/page{{ p }}">{{ p }}</a>
+    {% else %}
+    {{ p }}
+    {% endif %}
+    {% endfor %}
+</p>
 <table id="abits">
 <tr>
     <th>Дата</th>
@@ -15,7 +24,7 @@
 {% for r in abitrequest_list %}
 <tr>
     <td>{{ r.date|date:"d.m.Y" }}</td>
-    <td class="shifr">{{ r.code }}</td>
+    <td class="shifr"><a href="/abit/edit/{{ r.id }}">{{ r.code }}</a></td>
     <td><a href="/abit/edit/{{ r.id }}">{{ r.surname }} {{ r.name }} {{ r.father }}</a></td>
     <td class="bal">{{ r.att_srbal }}</td>
     <td class="bal">{{ r.test1_value }}</td>
@@ -25,5 +34,13 @@
 </tr>
 {% endfor %}
 </table>
-<p>Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</p>
+<p class="pager">Страницы:
+    {% for p in page_obj.paginator.page_range %}
+        {% if p != page_obj.number %}
+            <a href="/abit/list/page{{ p }}">{{ p }}</a>
+        {% else %}
+            {{ p }}
+        {% endif %}
+    {% endfor %}
+</p>
 {% endblock %}
