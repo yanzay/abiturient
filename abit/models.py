@@ -3,11 +3,19 @@ from django.db.models import Model
 from django.db.models.fields import CharField, DateField, FloatField, DecimalField
 from django.db.models.fields.related import ForeignKey, ManyToManyField
 from django.contrib.auth.models import User
+from django.db.models.signals import pre_save
+
+#pre_save.connect(calc_sr_bal)
+
+#def calc_sr_bal(sender,instance):
+#    pass
 
 class AbitRequest(Model):
+    SEX_CHOICES = ((u'М',u'Мужской'),(u'Ж',u'Женский'))
     surname = CharField(u'Фамилия', max_length=50)
     name = CharField(u'Имя', max_length=50)
     father = CharField(u'Отчество', max_length=50)
+    sex = CharField(u'Пол', max_length=1, choices=SEX_CHOICES)
     birth_date = DateField(u'Дата рождения')
     passport_ser = CharField(u'Серия паспорта', max_length=5)
     passport_num = CharField(u'Номер паспорта', max_length=10)
@@ -24,19 +32,19 @@ class AbitRequest(Model):
     speciality = ForeignKey('Speciality', verbose_name=u'Специальность')
     edform = ForeignKey('EducationalForm',verbose_name=u'Форма обучения')
 
-    test1_subject = ForeignKey('TestSubject',related_name="+")
+    test1_subject = ForeignKey('TestSubject',related_name="+",verbose_name=u'Первый предмет')
     test1_cert_num = CharField(u'Номер сертификата', max_length=15)
     test1_cert_pin = CharField(u'Пин-код сертификата', max_length=4)
     test1_cert_year = CharField(u'Год получения сертификата', max_length=4)
     test1_value = DecimalField(u'Балл', max_digits=4, decimal_places=1)
 
-    test2_subject = ForeignKey('TestSubject',related_name="+")
+    test2_subject = ForeignKey('TestSubject',related_name="+",verbose_name=u'Второй предмет')
     test2_cert_num = CharField(u'Номер сертификата', max_length=15)
     test2_cert_pin = CharField(u'Пин-код сертификата', max_length=4)
     test2_cert_year = CharField(u'Год получения сертификата', max_length=4)
     test2_value = DecimalField(u'Балл', max_digits=4, decimal_places=1)
 
-    test3_subject = ForeignKey('TestSubject',related_name="+")
+    test3_subject = ForeignKey('TestSubject',related_name="+", verbose_name=u'Третий предмет')
     test3_cert_num = CharField(u'Номер сертификата', max_length=15)
     test3_cert_pin = CharField(u'Пин-код сертификата', max_length=4)
     test3_cert_year = CharField(u'Год получения сертификата', max_length=4)
@@ -45,12 +53,12 @@ class AbitRequest(Model):
     date = DateField(auto_now_add=True)
     creator = ForeignKey(User)
 
-    def __unicode__(self):
-        return u"%s %s %s" % (self.surname, self.name, self.father)
-
     @property
     def sum_bal(self):
         return self.att_srbal + self.test1_value + self.test2_value + self.test3_value
+
+    def __unicode__(self):
+        return u"%s %s %s" % (self.surname, self.name, self.father)
 
 #class AbiturientAdmin(admin.ModelAdmin):
 #   list_display = ('surname', 'name', 'father')

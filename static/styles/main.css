@@ -50,3 +50,8 @@ table#abits{border: 1px solid #888;margin: 3px;}
 
 p.pager {text-align: right;padding: 3px;}
 p.pager a{color: #005;}
+
+#abitrequest input{padding: 3px;margin: 1px;width:300px;font-size: 15px;}
+#abitrequest input[type="submit"]{padding: 3px; margin: 1px 1px 1px 425px; width:100px;font-size: 15px;}
+#abitrequest select{padding: 3px;margin: 1px;width:308px;font-size: 15px;}
+#abitrequest th{text-align: right;}

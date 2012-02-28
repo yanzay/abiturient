@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form action="" method="post">
+<form action="" method="post" id="abitrequest">
 {% csrf_token %}
 <table>
 {{ form.as_table }}
 </table>
-    <input type="submit" value="Отправить" />
+    <input type="submit" value="Сохранить" />
 </form>
 <script>
     $('.date').mask('99.99.9999');
