@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="get" action="/abit/rating/">
+<select name="q">
+    {% for spec in specs %}
+        {{ spec }},{{ selected }}
+        {% if spec.name == selected %}
+            <option selected="selected">
+        {% else %}
+            <option>
+        {% endif %}
+        {{ spec.name }}
+        </option>
+    {% endfor %}
+</select>
+<input type="submit" value="ok">
+</form>
+<table id="abits">
+    <tr>
+        <th>Дата</th>
+        <th class="shifr">Шифр</th>
+        <th class="name">ФИО</th>
+        <th class="bal">Средний<br>балл<br>аттестата</th>
+        <th class="bal">Украинский<br>язык и<br>литература</th>
+        <th class="bal">Второй<br>предмет</th>
+        <th class="bal">Третий<br>предмет</th>
+        <th class="bal">Сумма<br>баллов</th>
+    </tr>
+    {% for r in abitrequest_list %}
+    <tr>
+        <td>{{ r.date|date:"d.m.Y" }}</td>
+        <td class="shifr"><a href="/abit/edit/{{ r.id }}">{{ r.code }}</a></td>
+        <td><a href="/abit/edit/{{ r.id }}">{{ r.surname }} {{ r.name }} {{ r.father }}</a></td>
+        <td class="bal">{{ r.att_srbal }}</td>
+        <td class="bal">{{ r.test1_value }}</td>
+        <td class="bal">{{ r.test2_value }}</td>
+        <td class="bal">{{ r.test3_value }}</td>
+        <td class="bal">{{ r.sum_bal }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
