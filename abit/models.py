@@ -1,6 +1,6 @@
 ﻿# coding=utf-8
 from django.db.models import Model
-from django.db.models.fields import CharField, DateField, FloatField, DecimalField
+from django.db.models.fields import CharField, DateField, FloatField, DecimalField, BooleanField, IntegerField
 from django.db.models.fields.related import ForeignKey, ManyToManyField
 from django.contrib.auth.models import User
 from django.db.models.signals import pre_save
@@ -11,6 +11,7 @@ from django.db.models.signals import pre_save
 #    pass
 
 class AbitRequest(Model):
+    #Личные данные
     SEX_CHOICES = ((u'М',u'Мужской'),(u'Ж',u'Женский'))
     surname = CharField(u'Фамилия', max_length=50)
     name = CharField(u'Имя', max_length=50)
@@ -28,6 +29,12 @@ class AbitRequest(Model):
     att_school = CharField(u'Учебное заведение', max_length=25)
     att_date = DateField(u'Дата выдачи аттестата')
     att_srbal = DecimalField(u'Средний балл аттестата', max_digits=4, decimal_places=1)
+
+    #Льготы
+    privilege = BooleanField(u'Льготы',default=False)
+    privilege_category = CharField(u'Льготная категория',max_length=100)
+
+    #Данные заявки
     code = CharField(u'Шифр заявки', max_length=7)
     speciality = ForeignKey('Speciality', verbose_name=u'Специальность')
     edform = ForeignKey('EducationalForm',verbose_name=u'Форма обучения')
@@ -73,6 +80,7 @@ class Speciality(Model):
     code = CharField(u'Шифр специальности', max_length=15)
     name = CharField(u'Название', max_length=50)
     short_name = CharField(u'Короткое название', max_length=5)
+    budget = IntegerField(u'Количество бюджетных мест')
     subject1 = ForeignKey('TestSubject',related_name="+")
     subject2 = ForeignKey('TestSubject',related_name="+")
     subject3 = ManyToManyField('TestSubject',related_name="+")

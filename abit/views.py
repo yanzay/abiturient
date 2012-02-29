@@ -55,10 +55,22 @@ class RatingListView(ListView):
     def get_queryset(self):
 #        self.args[0]
         spec = self.getSpec()
-        spec = Speciality.objects.filter(name=spec)
+        spec = Speciality.objects.filter(name=spec).get()
 #        return HttpResponse(spec)
         reqs = list(AbitRequest.objects.all().filter(speciality=spec))
         reqs.sort(cmp=reqcmp)
+        reqs_priv = [ab for ab in reqs if ab.privilege]
+        reqs_priv.sort(cmp=reqcmp)
+        bugdet_priv_count = spec.budget / 4
+        if bugdet_priv_count == 0 and spec.budget != 0:
+            bugdet_priv_count = 1
+        i=0
+        if reqs_priv:
+            for r in reqs_priv:
+                if i < bugdet_priv_count:
+                    reqs.remove(r)
+                    reqs.insert(i,r)
+                    i+=1
         return reqs
 
     def get_context_data(self, **kwargs):

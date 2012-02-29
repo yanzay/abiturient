@@ -66,8 +66,8 @@ class Generator:
     def getSubj(self, sname):
         return TestSubject.objects.get(name=sname)
     
-    def addSpeciality(self, sname, short_name, scode, *args):
-        s = Speciality(name=sname, code=scode)
+    def addSpeciality(self, sname, short_name, scode, budget, *args):
+        s = Speciality(name=sname, code=scode, budget=budget)
         s.subject1 = self.getSubj(u'Українська мова та література')
         s.subject2 = self.getSubj(args[0])
         s.short_name = short_name
@@ -79,34 +79,34 @@ class Generator:
     def addSpecialities(self):
         Speciality.objects.all().delete()
         
-        self.addSpeciality(u'Економіка підприємства', u'еп', u'6.030504',
+        self.addSpeciality(u'Економіка підприємства', u'еп', u'6.030504', 1,
                             u'Математика',
                             u'Історія України',
                             u'Географія'
                             )
-        self.addSpeciality(u'Інформатика', u'ін', u'6.040302',
+        self.addSpeciality(u'Інформатика', u'ін', u'6.040302', 10,
                             u'Математика',
                             u'Фізика',
                             u'Англійська мова',
                             u'Французька мова',
                             u'Німецька мова'
                             )
-        self.addSpeciality(u'Машинобудування', u'оп', u'6.050503',
+        self.addSpeciality(u'Машинобудування', u'оп', u'6.050503', 14,
                             u'Математика',
                             u'Хімія',
                             u'Фізика'
                             )
-        self.addSpeciality(u'Екологія, охорона навколишнього середовища та збалансоване природокористування', u'ео', u'6.040106',
+        self.addSpeciality(u'Екологія, охорона навколишнього середовища та збалансоване природокористування', u'ео', u'6.040106', 7,
                             u'Математика',
                             u'Хімія',
                             u'Географія',
                             )
-        self.addSpeciality(u'Хімічна технологія', u'ор', u'6.051301',
+        self.addSpeciality(u'Хімічна технологія', u'ор', u'6.051301', 16,
                             u'Хімія',
                             u'Математика',
                             u'Фізика'
                             )
-        self.addSpeciality(u'Фармація', u'фп', u'7.120201',
+        self.addSpeciality(u'Фармація', u'фп', u'7.120201', 9,
                             u'Хімія',
                             u'Фізика',
                             u'Біологія'
@@ -171,7 +171,10 @@ class Generator:
         ab.test3_cert_year = ab.test1_cert_year
         ab.test3_value = h.getBall()
         ab.creator = auth.get_user(request)
-        ab.code = ab.speciality.short_name + ab.edform.name[0].lower() + '%03d' % random.randint(1,200)
+        ab.code = ab.speciality.short_name + ab.edform.name[0].lower() + u'%03d' % random.randint(1,200)
+        if random.randint(1,20) == 5:
+            ab.privilege = True
+            ab.privilege_category = u'Інвалід'
         ab.save()
         
     def generateAbitRequests(self,request):
